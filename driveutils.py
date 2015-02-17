@@ -46,12 +46,17 @@ def getFiles(dirID):
     files = drive.ListFile({"q": query})
     return files
     
-def getRealOwner(fileId,service):
+def getOriginalOwnerEmail(fileId,service,email=None):
     permissions = service.permissions().list(fileId=fileId).execute()
     perms1 = permissions.get('items', [])
     for p in perms1:
-        if p["role"] != "owner":
-            print p["emailAddress"]
+        if email is None:
+            if p["role"] != "owner":
+                return p["emailAddress"]
+        else:
+            if p["emailAddress"] != email:
+            return p["emailAddress"]
+    return None
     
 def test1():
     authenticate()
