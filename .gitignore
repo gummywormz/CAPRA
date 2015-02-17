@@ -103,3 +103,4 @@ $RECYCLE.BIN/
 # Custom
 # =========================
 *.bak
+creds.json

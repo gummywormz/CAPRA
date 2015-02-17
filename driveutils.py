@@ -1,6 +1,7 @@
 #! usr/bin/env python
 
 import webbrowser
+import os.path
 #import . Authenticator
 
 from pydrive2.auth import GoogleAuth
@@ -24,11 +25,19 @@ def getDirectoryById(id):
     return drive.CreateFile({"id" : id})
     
 def authenticate():
+    service = None
     gauth = GoogleAuth(settings_file="settings.yaml") #settings is broken atm
-    auth_url = gauth.GetAuthUrl()
-    webbrowser.open(auth_url)
-    code = raw_input("Enter your auth code:")
-    service = gauth.Auth(code)
+    if os.path.isfile("creds.json"):
+        gauth.LoadCredentialsFile("creds.json")
+        gauth.Refresh()
+        service = gauth.Authorize()
+        
+    else:
+        auth_url = gauth.GetAuthUrl()
+        webbrowser.open(auth_url)
+        code = raw_input("Enter your auth code:")
+        service = gauth.Auth(code)
+        gauth.SaveCredentialsFile("creds.json")
     getRealOwner("0BwWcaA4Re9t6WVNnejY0VVlRVFU",service)
     drive = GoogleDrive(gauth)
 
