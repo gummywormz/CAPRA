@@ -1,0 +1,3 @@
+This is the original PyDrive with some modifications to suit CAPRA's needs. 
+Most notably, auth.py has been modified to give the service instance that
+was built during authentication to use it for other purposes

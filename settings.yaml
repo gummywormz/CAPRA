@@ -1,0 +1,14 @@
+client_config_backend: settings
+client_config:
+	client_id: 785252251784-bfso0jeq9nv2gr82u7ohl5qf5uctnirj.apps.googleusercontent.com
+	client_secret: UC86zWuIF8RpH7DyEanQHIjR
+
+save_credentials: True
+save_credentials_backend: file
+save_credentials_file: credentials.json
+
+get_refresh_token: True
+
+oauth_scope:
+  - https://www.googleapis.com/auth/gmail.compose
+  - https://www.googleapis.com/auth/drive.readonly
