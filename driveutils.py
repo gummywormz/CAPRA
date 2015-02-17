@@ -9,6 +9,7 @@ from pydrive2.drive import GoogleDrive
 
 gauth = None
 drive = None
+service = None
 
 def findDirectory(service, dirname):
     # title = doesn't work that well for whatever reason
@@ -25,7 +26,6 @@ def getDirectoryById(id):
     return drive.CreateFile({"id" : id})
     
 def authenticate():
-    service = None
     gauth = GoogleAuth(settings_file="settings.yaml") #settings is broken atm
     if os.path.isfile("creds.json"):
         gauth.LoadCredentialsFile("creds.json")
@@ -38,7 +38,7 @@ def authenticate():
         code = raw_input("Enter your auth code:")
         service = gauth.Auth(code)
         gauth.SaveCredentialsFile("creds.json")
-    getRealOwner("0BwWcaA4Re9t6WVNnejY0VVlRVFU",service)
+
     drive = GoogleDrive(gauth)
 
 def getFiles(dirID):
@@ -60,6 +60,7 @@ def getOriginalOwnerEmail(fileId,service,email=None):
     
 def test1():
     authenticate()
+    getRealOwner("0BwWcaA4Re9t6WVNnejY0VVlRVFU",service)
     
     
 if __name__ == "__main__":
